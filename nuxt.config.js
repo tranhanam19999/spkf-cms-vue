@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - nuxt-init-base',
-    title: 'nuxt-init-base',
+    titleTemplate: '%s - CMS',
+    title: 'SPKF',
     htmlAttrs: {
       lang: 'en'
     },
@@ -36,6 +36,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/device'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -46,13 +47,14 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      light: true,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
+        light: {
+          primary: "#0F4C81",
+          // accent: colors.grey.darken3,
+          secondary: "#0C3A61",
+          // info: colors.teal.lighten1,
+          accent: "#f2f2f2",
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
