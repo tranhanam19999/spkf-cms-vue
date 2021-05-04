@@ -11,6 +11,7 @@
               :items="sites"
               item-text="websiteName"
               width="100%"
+              label="Chọn website"
               solo
             ></v-select>
           </v-card-text>
@@ -58,6 +59,8 @@
 
 <script>
 export default {
+  layout: "auth",
+
   data() {
     return {
       sites: [],
