@@ -11,8 +11,10 @@
   "dependencies": {
     "@nuxtjs/device": "^2.1.0",
     "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
     "core-js": "^3.9.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.3"
