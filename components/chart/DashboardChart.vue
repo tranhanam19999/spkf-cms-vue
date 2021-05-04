@@ -1,6 +1,6 @@
 <template>
   <div>
-    <line-chart :chart-data="datacollection" :chartType="chartType"></line-chart>
+    <line-chart :chart-data="datacollection" :chartType="chartType" :rangeDate="rangeDate"></line-chart>
   </div>
 </template>
 
@@ -12,6 +12,10 @@
       chartType: {
         type: String,
         default: "Views"
+      },
+      rangeDate: {
+        type: Array,
+        default: []
       }
     },
     components: {

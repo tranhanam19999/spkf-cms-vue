@@ -49,15 +49,22 @@
       chartType: {
         type: String,
         default: "Views"
+      },
+      rangeDate: {
+        type: Array,
+        default: []
       }
     },
     watch: {
-      chartType(newVal) {
-        this.renderDBChart(newVal)
+      chartType() {
+        this.renderDBChart(this.chartType, this.rangeDate)
+      },
+      rangeDate() {
+        this.renderDBChart(this.chartType, this.rangeDate)
       }
     },
     methods: {
-      renderDBChart(type) {
+      renderDBChart(type, rangeDate) {
         const chart = {}
         if ( type == "Comments" ) {
           chart.name = "Tổng bình luận"
@@ -92,24 +99,10 @@
         this.gradient = this.$refs.canvas
         .getContext("2d")
         .createLinearGradient(0, 0, 0, 450);
-        this.gradient2 = this.$refs.canvas
-          .getContext("2d")
-          .createLinearGradient(0, 0, 0, 450);
-        this.gradient3 = this.$refs.canvas
-          .getContext("2d")
-          .createLinearGradient(0, 0, 0, 450);
 
-        this.gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
-        this.gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-        this.gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
-
-        this.gradient2.addColorStop(0, "rgba(0, 231, 255, 0.9)");
-        this.gradient2.addColorStop(0.5, "rgba(0, 231, 255, 0.25)");
-        this.gradient2.addColorStop(1, "rgba(0, 231, 255, 0)");
-
-        this.gradient3.addColorStop(0, "rgba(38, 232, 165, 0.5)");
-        this.gradient3.addColorStop(0.5, "rgba(38, 232, 165, 0.25)");
-        this.gradient3.addColorStop(1, "rgba(38, 232, 165, 0)");
+        this.gradient.addColorStop(0, "rgba(15, 76, 129, 0.9)");
+        this.gradient.addColorStop(0.5, "rgba(15, 76, 129, 0.25)");
+        this.gradient.addColorStop(1, "rgba(15, 76, 129, 0)");
 
         this.renderChart(
           {
@@ -123,31 +116,13 @@
             datasets: [
               {
                 label: chart.name,
-                borderColor: "#FC2525",
-                pointBackgroundColor: "red",
-                borderWidth: 1,
+                borderColor: "#0F4C81",
+                pointBackgroundColor: "#0F4C81",
                 pointBorderColor: "white",
+                borderWidth: 1,
                 backgroundColor: this.gradient,
                 data: chart.data
               },
-              // {
-              //   label: "Tổng bài viết",
-              //   borderColor: "#05CBE1",
-              //   pointBackgroundColor: "white",
-              //   pointBorderColor: "white",
-              //   borderWidth: 1,
-              //   backgroundColor: this.gradient2,
-              //   data: chart.data
-              // },
-              // {
-              //   label: "Tổng bình luận",
-              //   borderColor: "#26E8A5",
-              //   pointBackgroundColor: "white",
-              //   pointBorderColor: "white",
-              //   borderWidth: 1,
-              //   backgroundColor: this.gradient3,
-              //   data:
-              // }
             ]
           },
           { responsive: true, maintainAspectRatio: false }
