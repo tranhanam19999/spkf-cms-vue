@@ -108,7 +108,6 @@
       <v-card class="" outlined>
         <v-card-title class="d-flex justify-space-between">
           <h3 class="text-h6">Bài viết cần xử lý</h3>
-
           <v-hover v-slot="{ hover }">
             <nuxt-link
               class="subtitle-1 text-decoration-none links primary--text"
@@ -183,6 +182,11 @@ export default {
           value: 'Comments'
         }
       ],
+    }
+  },
+  created() {
+    if (!this.loginState) {
+      this.$router.push('login')
     }
   }
 }

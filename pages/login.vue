@@ -7,13 +7,14 @@
           <v-card-text>
             <v-select
               hide-details
-              v-model="select"
+              v-model="selectedSite"
               :items="sites"
               item-text="websiteName"
               width="100%"
               label="Chọn website"
               solo
             ></v-select>
+            <v-alert type="error" class="mt-3 mb-0" v-model="failSelect">Vui lòng chọn tổ chức</v-alert>
           </v-card-text>
           <v-card-actions class="px-6 pb-5">
             <div class="text-right ml-auto">
@@ -44,6 +45,7 @@
             required
           ></v-text-field>
           <p class="red--text" v-if="message">{{ message }}</p>
+          <v-alert type="error" class="mt-3 mb-0" v-model="failLogin">Vui lòng nhập đủ thông tin</v-alert>
           <v-btn
             class="my-5 ml-auto d-block"
             type="submit"
@@ -64,8 +66,9 @@ export default {
   data() {
     return {
       sites: [],
-
-      select: "Tổ chức tòa soạn",
+      failLogin: false,
+      failSelect: false,
+      selectedSite: "",
 
       dialog: false,
       loading: false,
@@ -78,34 +81,48 @@ export default {
   },
   methods: {
     async handleSignin() {
-      await this.$store.dispatch('login', {
-        username: this.form.username,
-        password: this.form.password,
-        onSuccess: data => {
-          this.$store.dispatch('getAvailableWebsite', {
-            onSuccess: data => {
-              console.log('da ', data.result)
-              this.dialog = true
-              this.sites = [
-                {
-                  websiteId: '987654321',
-                  websiteName: 'Tổ chức quản lý'
-                },
-                {
-                  ...data.result
-                }
-              ]
-            }
-          })
-        },
-        onError: err => {
-          console.log('err ', err)
-        }
-      })
+      if ( this.form.username == "" || this.form.password == "" ) {
+        this.failLogin = true
+        setTimeout(() => {
+          this.failLogin = false
+        }, 1500)
+      }
+      else {
+        await this.$store.dispatch('login', {
+          username: this.form.username,
+          password: this.form.password,
+          onSuccess: data => {
+            this.$store.dispatch('getAvailableWebsite', {
+              onSuccess: data => {
+                this.dialog = true
+                this.sites = [
+                  {
+                    websiteId: '987654321',
+                    websiteName: 'Tổ chức quản lý'
+                  },
+                  {
+                    ...data.result
+                  }
+                ]
+              }
+            })
+          },
+          onError: err => {
+            console.log('err ', err)
+          }
+        })
+      }
     },
 
     handleChooseSign() {
-      this.$router.push('/')
+      console.log('aa ' , this.selectedSite )
+      if ( this.selectedSite == "" ) {
+        this.failSelect = true
+        setTimeout(() => {
+          this.failSelect = false
+        },1500)
+      }
+      //this.$router.push('/')
     },
 
     handleClose() {
