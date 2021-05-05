@@ -1,6 +1,7 @@
 
 <script>
   import { Line, mixins } from 'vue-chartjs'
+  import data from '../../static/mockData'
   const { reactiveProp } = mixins
   export default {
     data() {
@@ -9,38 +10,7 @@
           labels: ["Lượng truy cập", "Ngày"],
           datasets: []
         },
-        mockDate: [
-          {
-            date:"30/4/2021",
-            totalViews: 33,
-            totalPosts: 32,
-            totalComments: 2
-          },
-          {
-            date:"1/5/2021",
-            totalViews: 22,
-            totalPosts: 11,
-            totalComments: 20
-          },
-          {
-            date:"2/5/2021",
-            totalViews: 41,
-            totalPosts: 16,
-            totalComments: 3
-          },
-          {
-            date:"3/5/2021",
-            totalViews: 13,
-            totalPosts: 33,
-            totalComments: 1
-          },
-          {
-            date:"4/5/2021",
-            totalViews: 29,
-            totalPosts: 16,
-            totalComments: 8
-          }
-        ],
+        mockDate: [...data.mockChart],
       }
     },
     extends: Line,
@@ -87,7 +57,7 @@
           ]
         }
         else {
-          chart.name = "Tổng lượt xem"
+          chart.name = "Tổng lượt truy cập"
           chart.data = [
             this.mockDate[0].totalViews,
             this.mockDate[1].totalViews,
