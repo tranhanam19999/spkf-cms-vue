@@ -41,7 +41,7 @@ const mockChart = [
         date:"1/5/2021",
         totalViews: 22,
         totalPosts: 11,
-        totalComments: 20
+        totalComments: 23
     },
     {
         date:"2/5/2021",
@@ -94,4 +94,58 @@ const mockReport = [
         reportType: 'Quấy rối'
     },
 ]
-export default { mockFeedback, mockChart, mockReport }
+const mockPermissions = [
+    {
+        parent: "Cấu hình site",
+        children: [
+          {
+              type: "Website",
+              group: "Cấu hình site",
+              name: "Cấu hình danh mục",
+              value: ["category.get", "category.update"]
+          },
+        ]
+    },
+    {
+        parent: "Nội dung web",
+        children: [
+          {
+              type: "Website",
+              group: "Nội dung web",
+              name: "Quản lý bài viết",
+              value: ["post.create", "post.get", "post.update", "post.delete"]
+          },
+          {
+              type: "Website",
+              group: "Nội dung web",
+              name: "Quản lý bình luận",
+              value: ["comment.get"]
+          },
+        ]
+    },
+    {
+        parent: "Lịch dạy",
+        type: "Website",
+        group: "calendar",
+        name: "Lịch dạy",
+        value: ["calendar.get", "calendar.update", "calendar.delete", "calendar.create"],
+        children: []
+    },
+    {
+        parent: "Feedback",
+        type: "Website",
+        group: "Feedback",
+        name: "Feedback",
+        value: ["feedback.get"],
+        children: []
+    },
+    {
+        parent: "Media",
+        type: "Website",
+        group: "Media",
+        name: "Media",
+        value: ["media.get"],
+        children: []
+    }
+]
+export default { mockFeedback, mockChart, mockReport, mockPermissions }

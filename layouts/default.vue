@@ -1,7 +1,7 @@
 <template>
   <v-app>
       <v-navigation-drawer
-        fixed app width="245"
+        fixed app
         v-model="drawer"
         :mini-variant="miniVariant">
         <v-list-item class="bg-navi px-5">
@@ -39,47 +39,49 @@
           class="py-0"
         >
           <v-list-group
+            v-if="item.children.length != 0"
             class="parent"
             no-action
           >
             <template slot="prependIcon">
-              <v-icon small>mdi-home</v-icon>
+              <v-icon >{{renderIconParent(item.parent)}}</v-icon>
             </template>
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Xin chao</v-list-item-title>
+                <v-list-item-title v-text="item.parent"></v-list-item-title>
               </v-list-item-content>
             </template>
 
             <!-- children -->
             <v-list-item
-              class="pl-12"
-              v-for="(child, i) in items"
+              class="pl-8"
+              v-for="(child, i) in item.children"
               :key="i"
               @click="routerTo(child.title)"
             >
               <!-- title -->
               <v-list-item-content>
-                <v-list-item-title v-text="child.title"></v-list-item-title>
+                <v-list-item-title v-text="child.name"></v-list-item-title>
               </v-list-item-content>
               <!-- icon -->
               <v-list-item-icon>
                 <v-icon
                   small
-                  v-text="renderIcon(child.value)"
+                  v-text="renderIcon(child.name)"
                 ></v-icon>
               </v-list-item-icon>
             </v-list-item>
           </v-list-group>
           <v-list-item
             link
+            v-if="!item.children || item.children.length === 0"
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon v-text="renderIcon(item.name)"></v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -138,6 +140,7 @@
 </template>
 
 <script>
+import data from '../static/mockData'
 export default {
   created() {
     //this.$router.push('/login')
@@ -164,61 +167,28 @@ export default {
     renderIcon(value) {
       let icon;
       switch (value) {
-        case "home":
-          icon = "mdi-home";
+        case "Cấu hình danh mục":
+          icon = "mdi-shape"
           break;
-        case "media":
-          icon = "mdi-folder-multiple-image";
-          break;
-        case "root-tenant":
-          icon = "mdi-sitemap";
-          break;
-        case "root-site":
-          icon = "mdi-application";
-          break;
-        case "config-users":
-          icon = "mdi-account-multiple";
-          break;
-        case "config-process":
-          icon = "mdi-page-next";
-          break;
-        case "config-category":
-          icon = "mdi-bookmark-minus";
-          break;
-        case "config-layout":
-          icon = "mdi-page-layout-body";
-          break;
-        case "config-ads":
-          icon = "mdi-image";
-          break;
-        case "article-list":
+        case "Quản lý bài viết":
           icon = "mdi-magnify";
           break;
-        case "article.media":
-          icon = "mdi-folder-multiple-image";
-          break;
-        case "article-create":
-          icon = "mdi-fountain-pen-tip";
-          break;
-        case "article-comment":
+        case "Quản lý bình luận":
           icon = "mdi-comment";
           break;
-        case "article-tag":
-          icon = "mdi-tag";
+        case "Lịch dạy":
+          icon = "mdi-calendar";
           break;
-        case "other-report":
-          icon = "mdi-file-chart";
+        case "Feedback":
+          icon = "mdi-comment-quote"
           break;
-        case "other-history":
-          icon = "mdi-history";
-          break;
-        case "manage-reader":
-          icon = "mdi-account-multiple";
+        case "Media":
+          icon = "mdi-image"
           break;
         default:
           icon = "home";
-        }
-        return icon;
+      }
+      return icon;
     },
     renderIconParent(value) {
       let icon;
@@ -252,11 +222,7 @@ export default {
       mock: [
         { title: 'Bảng tổng hợp', icon: 'mdi-home'}
       ],
-      items: [
-        { title: 'Media', icon: 'mdi-help-box' },
-        { title: 'Media', icon: 'mdi-image' },
-
-      ],
+      items: [...data.mockPermissions],
       childItems: [
 
       ],

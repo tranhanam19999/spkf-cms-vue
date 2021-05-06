@@ -116,12 +116,11 @@
             >Xem tất cả</nuxt-link>
           </v-hover>
         </v-card-title>
-
         <ReportedPost />
       </v-card>
     </v-col>
     <v-col cols="5">
-      <v-card class="" outlined>
+      <v-card outlined>
         <v-card-title class="d-flex justify-space-between">
           <h3 class="text-h6">Feedback từ người dùng</h3>
           <v-hover v-slot="{ hover }">
@@ -185,8 +184,8 @@ export default {
     }
   },
   created() {
-    if (!this.loginState) {
-      this.$router.push('login')
+    if (!this.$store.state.isAuth) {
+      this.$router.push('/login')
     }
   }
 }

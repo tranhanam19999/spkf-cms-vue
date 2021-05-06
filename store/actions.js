@@ -5,6 +5,7 @@ export async function login({ commit }, { onSuccess, onError, ...data }) {
     commit("setUserPermissions", []);
     localStorage.clear();
 
+    commit("setAuth", true)
     onSuccess({
         status: 200,
         result: {

@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
   layout: "auth",
 
@@ -115,12 +116,14 @@ export default {
     },
 
     handleChooseSign() {
-      console.log('aa ' , this.selectedSite )
       if ( this.selectedSite == "" ) {
         this.failSelect = true
         setTimeout(() => {
           this.failSelect = false
         },1500)
+      }
+      else {
+        this.$router.push('/')
       }
       //this.$router.push('/')
     },
