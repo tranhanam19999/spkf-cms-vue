@@ -139,9 +139,9 @@
 </template>
 
 <script>
-import DashboardChart from '../components/Chart/DashboardChart'
-import ReportedPost from '../components/Tables/ReportedPost'
-import UserFeedback from '../components/Tables/UserFeedback'
+import DashboardChart from '@/components/Chart/DashboardChart'
+import ReportedPost from '@/components/Tables/ReportedPost'
+import UserFeedback from '@/components/Tables/UserFeedback'
 export default {
   components: {
     DashboardChart,
