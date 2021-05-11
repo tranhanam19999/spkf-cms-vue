@@ -57,7 +57,7 @@
               class="pl-8"
               v-for="(child, i) in item.children"
               :key="i"
-              @click="routerTo(child.title)"
+              @click="routerTo(child.name)"
             >
               <!-- title -->
               <v-list-item-content>
@@ -75,6 +75,7 @@
           <v-list-item
             link
             v-if="!item.children || item.children.length === 0"
+            @click="routerTo(child.name)"
           >
             <v-list-item-icon>
               <v-icon v-text="renderIcon(item.name)"></v-icon>
@@ -155,14 +156,31 @@ export default {
     },
     routerTo(path) {
       switch (path) {
-        case "home":
-          this.$router.push('/')
+        case "Quản lý bài viết":
+          this.$router.push('/article/list')
+          break;
+        case "Quản lý bình luận":
+          this.$router.push('/comment/list')
+          break;
+        case "Cấu hình danh mục":
+          this.$router.push('/category')
+          break;
+        case "Lịch dạy":
+          this.$router.push('/calendar')
+          break;
+        case "Feedback":
+          this.$router.push('/feedback')
+          break;
+        case "Media":
+          this.$router.push('/media')
           break;
         default:
-          this.$router.push('/login')
+          this.$router.push('/')
       }
     },
     handleLogout() {
+        this.$store.dispatch('commitLogout')
+        this.$router.push('/login')
     },
     renderIcon(value) {
       let icon;

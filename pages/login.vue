@@ -77,6 +77,8 @@ export default {
         username: "",
         password: ""
       },
+      roleList: [],
+      user: {},
       message: ""
     };
   },
@@ -93,6 +95,7 @@ export default {
           username: this.form.username,
           password: this.form.password,
           onSuccess: data => {
+            this.user = data.result
             this.$store.dispatch('getAvailableWebsite', {
               onSuccess: data => {
                 this.dialog = true
@@ -115,7 +118,7 @@ export default {
       }
     },
 
-    handleChooseSign() {
+    async handleChooseSign() {
       if ( this.selectedSite == "" ) {
         this.failSelect = true
         setTimeout(() => {
@@ -123,12 +126,37 @@ export default {
         },1500)
       }
       else {
-        this.$router.push('/')
+        this.$store.dispatch('commitLogin', {
+          user: this.user
+        })
+        await this.$store.dispatch('getRoleList', {
+          userId: this.user.id,
+          onSuccess: data => {
+            data.result.roleList.map(roleGroup => {
+              roleGroup.value.map(role => {
+                this.roleList.push(role)
+              })
+            })
+          },
+          onError: err => {
+            console.log('err ', err)
+          }
+        })
+        console.log('this.roleLost ', this.roleList)
+        await this.$store.dispatch('commitRoleList', {
+          roleList: this.roleList
+        })
+        await this.$router.push('/')
       }
-      //this.$router.push('/')
+
     },
 
     handleClose() {
+    }
+  },
+  beforeCreate() {
+    if (localStorage.getItem('roleList')) {
+      this.$router.push('/')
     }
   }
 };

@@ -184,7 +184,7 @@ export default {
     }
   },
   created() {
-    if (!this.$store.state.isAuth) {
+    if (!this.$store.state.isAuth && !localStorage.getItem('roleList')) {
       this.$router.push('/login')
     }
   }
